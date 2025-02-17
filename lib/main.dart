@@ -34,6 +34,12 @@ class _HomePageState extends State<HomePage> {
   /// Whether the fullscreen mode is enabled.
   bool isFullscreen = false;
 
+  /// A controller for url [TextField] input.
+  final TextEditingController urlController = TextEditingController();
+
+  /// Current image url for [ImageViewer].
+  String? url = '';
+
   /// A focus node to enable hit-enter-to-submit-url behavior.
   FocusNode confirmUrlButtonFocusNode = FocusNode();
 
@@ -57,12 +63,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  /// A controller for url [TextField] input.
-  final TextEditingController urlController = TextEditingController();
-
-  /// Current image url for [ImageViewer].
-  String? url = '';
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -85,14 +85,14 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: TextField(
                         controller: urlController,
-                        onSubmitted: (_) => submitUrl(urlController.text),
+                        onSubmitted: (_) => _submitUrl(urlController.text),
                         decoration: InputDecoration(hintText: 'Image URL'),
                       ),
                     ),
                     ElevatedButton(
                       autofocus: true,
                       focusNode: confirmUrlButtonFocusNode,
-                      onPressed: () => submitUrl(urlController.text),
+                      onPressed: () => _submitUrl(urlController.text),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
                         child: Icon(Icons.arrow_forward),
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Updates state with a new image url to refresh [ImageViewer].
-  void submitUrl(String text) {
+  void _submitUrl(String text) {
     if (text.isEmpty) return;
     setState(() => url = text);
   }

@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 /// A widget for displaying the image based on [imageUrl].
 /// The image fits like [BoxFit.contain].
 class ImageViewer extends StatefulWidget {
-  /// Url of the image to display.
-  final String? imageUrl;
-
-  /// Called when the user double-clicks on the image.
-  final Function onDoubleClick;
-
   const ImageViewer({
     super.key,
     required this.imageUrl,
     required this.onDoubleClick,
   });
+
+  /// Url of the image to display.
+  final String? imageUrl;
+
+  /// Called when the user double-clicks on the image.
+  final Function onDoubleClick;
 
   @override
   State<ImageViewer> createState() => _ImageViewerState();

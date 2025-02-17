@@ -4,27 +4,24 @@ import 'dart:js' as js;
 
 /// A handler that subscribes to fullscreen mode changes.
 class FullscreenHandler {
-  late StreamSubscription<html.MessageEvent> onMessageSubscription;
-
-  FullscreenHandler(Function(bool) onFullScreenToggle) {
-    _initialize(onFullScreenToggle);
-  }
-
   /// Subscribes to messages sent from `web/fullscreen.js` and calls
   /// the callback whenever the fullscreen mode is being toggled.
   ///
   /// The callback should also be called if the tab was opened
   /// in fullscreen mode.
-  void _initialize(Function(bool) onFullScreenChange) {
+  FullscreenHandler(Function(bool) onFullScreenToggle) {
     // Try catching fullscreen at the tab loading.
-    if (isInFullScreen()) onFullScreenChange(true);
+    if (isInFullScreen()) onFullScreenToggle(true);
 
-    onMessageSubscription = html.window.onMessage.listen((event) {
+    _onMessageSubscription = html.window.onMessage.listen((event) {
       if (event.data is Map && event.data['type'] == 'fullscreen_toggled') {
-        onFullScreenChange(event.data['isFullscreen'] == true);
+        onFullScreenToggle(event.data['isFullscreen'] == true);
       }
     });
   }
+
+  /// A subscription to js fullscreen toggling messages.
+  late StreamSubscription<html.MessageEvent> _onMessageSubscription;
 
   /// Calls function defined in `web/fullscreen.js` file to toggle
   /// fullscreen mode.
@@ -39,6 +36,6 @@ class FullscreenHandler {
 
   /// Cancels the js message subscription to release resources.
   void dispose() {
-    onMessageSubscription.cancel();
+    _onMessageSubscription.cancel();
   }
 }
