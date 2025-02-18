@@ -15,13 +15,11 @@ class ImageViewerHtml extends StatelessWidget {
   /// Called when the user double-clicks on the image.
   final Function onDoubleClick;
 
-  // Uses deprecated `<center>` tag, no other ways to center the image work
+  /// HTML string providing `<img>` element.
   String get html {
     return """
       <html>
-        <center>
-          <img src="$imageUrl" style="width:100%"/>
-        </center>
+        <img src="$imageUrl" style="width:100%"/>
       </html>
       """;
   }
@@ -38,7 +36,7 @@ class ImageViewerHtml extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey,
                 ),
-                child: HtmlWidget(html)),
+                child: Center(child: HtmlWidget(html))),
           )),
     );
   }
