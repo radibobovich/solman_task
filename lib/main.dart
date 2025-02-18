@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:solman_task/fab_menu.dart';
 import 'package:solman_task/fullscreen_handler.dart';
 import 'package:solman_task/image_viewer.dart';
+import 'package:solman_task/image_viewer_html.dart';
 
 /// Entrypoint of the application.
 void main() {
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
-                    child: ImageViewer(
+                    child: ImageViewerHtml(
                   imageUrl: url,
                   onDoubleClick: () => fullscreenHandler.toggleFullScreen(),
                 )),
