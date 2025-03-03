@@ -37,7 +37,7 @@ class ImageViewerHtml extends StatelessWidget {
                             img as HTMLImageElement;
                             img.src = imageUrl ?? '';
                             img.style.width = '100%';
-                            img.style.objectFit = 'cover';
+                            img.style.objectFit = 'contain';
                           }),
                     ),
             ),
